@@ -15,7 +15,8 @@ public class Renderer {
     }
 
     public void render(Model model, BasicShader shader) {
-        renderModel(model);
         shader.bind();
+        renderModel(model);
+        shader.unbind();
     }
 }

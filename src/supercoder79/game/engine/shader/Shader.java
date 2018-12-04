@@ -69,6 +69,11 @@ public abstract class Shader {
     public void bind() {
         GL20.glUseProgram(programID);
     }
+
+    public void unbind() {
+        GL20.glUseProgram(0);
+    }
+
     public void destroy() {
         GL20.glDetachShader(programID, vertexShaderID);
         GL20.glDetachShader(programID, fragmentShaderID);
