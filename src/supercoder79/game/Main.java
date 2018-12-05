@@ -10,7 +10,7 @@ import supercoder79.game.engine.shader.TextureShader;
 public class Main {
     public static Renderer renderer = new Renderer();
     public static BasicShader backgroundShader = new BasicShader("backgroundShader.txt");
-    public static BasicShader foregroundShader = new TextureShader("vertexTextureShader.txt", "fragmentTextureShader.txt");
+    public static TextureShader foregroundShader = new TextureShader("vertexTextureShader.txt", "fragmentTextureShader.txt");
 
     public static void main(String[] args) {
         Window window = new Window(800, 600, 60, "Test");
@@ -52,7 +52,7 @@ public class Main {
             if (window.isUpdating()) {
                 window.update();
                 renderer.render(background, backgroundShader);
-                renderer.render(model, foregroundShader);
+                renderer.renderTexture(model, foregroundShader);
                 window.swapBuffers();
             }
         }

@@ -21,17 +21,19 @@ public class Renderer {
         shader.unbind();
     }
 
-    public void renderTexture(Model model) {
+    public void renderTexture(Model model, BasicShader shader) {
         if (model.textured) {
+            shader.bind();
             GL30.glBindVertexArray(model.vertexArrayID);
             GL20.glEnableVertexAttribArray(0);
             GL20.glEnableVertexAttribArray(1);
             GL13.glActiveTexture(GL13.GL_TEXTURE0);
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.material.textureID);
             GL11.glDrawElements(GL11.GL_TRIANGLES, model.vertexCount, GL11.GL_UNSIGNED_INT, 0);
-            GL20.glEnableVertexAttribArray(1);
             GL20.glDisableVertexAttribArray(0);
+            GL20.glDisableVertexAttribArray(1);
             GL30.glBindVertexArray(0);
+            shader.unbind();
         }
     }
 }
