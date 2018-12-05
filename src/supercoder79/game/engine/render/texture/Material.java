@@ -11,7 +11,9 @@ public class Material {
 
     public Material(String file) {
         try {
-            textureID = TextureLoader.getTexture("png", new FileInputStream("src/assets/"+file)).getTextureID();
+//            textureID = TextureLoader.getTexture("png", new FileInputStream("src/assets/"+file)).getTextureID();
+            textureID = TextureLoader.getTexture("png", new FileInputStream("res/textures/" + file)).getTextureID();
+            System.out.println(textureID);
         } catch(IOException e) {
             e.printStackTrace();
         }
