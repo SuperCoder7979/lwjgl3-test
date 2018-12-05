@@ -10,7 +10,6 @@ public abstract class Shader {
     public int vertexShaderID, fragmentShaderID, programID;
     public String vertexFile, fragmentFile;
     public Shader(String vertexFile, String fragmentFile) {
-        System.out.println("Loading Shader: " + vertexFile + ", " + fragmentFile);
         this.fragmentFile = fragmentFile;
         this.vertexFile = vertexFile;
     }
@@ -23,7 +22,6 @@ public abstract class Shader {
         String content = readFile(vertexFile);
         GL20.glShaderSource(vertexShaderID, content);
         GL20.glCompileShader(vertexShaderID);
-        System.out.println(content);
 
         if (GL20.glGetShaderi(vertexShaderID, GL20.GL_COMPILE_STATUS) == GL20.GL_FALSE) {
             System.out.println("Vertex foregroundShader: " + GL20.glGetShaderInfoLog(vertexShaderID));
@@ -33,7 +31,6 @@ public abstract class Shader {
         fragmentShaderID = GL20.glCreateShader(GL20.GL_FRAGMENT_SHADER);
         GL20.glShaderSource(fragmentShaderID, content);
         GL20.glCompileShader(fragmentShaderID);
-        System.out.println(content);
 
         if (GL20.glGetShaderi(fragmentShaderID, GL20.GL_COMPILE_STATUS) == GL20.GL_FALSE) {
             System.out.println("Fragment foregroundShader: " + GL20.glGetShaderInfoLog(fragmentShaderID));
@@ -60,10 +57,6 @@ public abstract class Shader {
 
     public void bindAttribute(int index, String location) {
         GL20.glBindAttribLocation(programID, index, location);
-    }
-
-    public void unbindAttribute(int index, String location) {
-        GL20.glBindAttribLocation(0, index, location);
     }
 
     public void bind() {

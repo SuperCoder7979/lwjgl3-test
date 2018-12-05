@@ -5,14 +5,17 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import supercoder79.game.engine.render.texture.Material;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 public class Model {
-    public int vertexCount, vertexBufferID, indicesBufferID, vertexArrayID;
+    public int vertexCount, vertexBufferID, indicesBufferID, vertexArrayID, textureCoordsBufferID;
+    public boolean textured = false;
     public float[] vertices;
     public int[] indices;
+    public Material material;
     public Model(float[] vertices, int[] indices) {
         this.vertices = vertices;
         this.indices = indices;
@@ -40,9 +43,24 @@ public class Model {
         GL20.glDisableVertexAttribArray(0);
     }
 
+    public void createTexture(float[] texCoords, String texName) {
+        material = new Material(texName);
+        FloatBuffer buffer = BufferUtils.createFloatBuffer(texCoords.length);
+        buffer.put(texCoords);
+        buffer.flip();
+        this.textured = true;
+        textureCoordsBufferID = GL15.glGenBuffers();
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, textureCoordsBufferID);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
+    }
+
     public void destroy() {
         GL30.glDeleteVertexArrays(vertexArrayID);
         GL20.glDeleteBuffers(vertexBufferID);
         GL20.glDeleteBuffers(indicesBufferID);
+        if (textured) {
+            GL20.glDeleteBuffers(textureCoordsBufferID);
+            material.remove();
+        }
     }
 }
