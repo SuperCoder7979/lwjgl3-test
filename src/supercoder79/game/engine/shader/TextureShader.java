@@ -1,6 +1,6 @@
 package supercoder79.game.engine.shader;
 
-public class TextureShader extends BasicShader{
+public class TextureShader extends BasicShader {
 
     public TextureShader(String vertexShader, String fragmentShader) {
         super(vertexShader, fragmentShader);

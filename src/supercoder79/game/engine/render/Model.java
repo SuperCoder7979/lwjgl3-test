@@ -52,6 +52,8 @@ public class Model {
         textureCoordsBufferID = GL15.glGenBuffers();
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, textureCoordsBufferID);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
+        GL20.glVertexAttribPointer(1, 2, GL11.GL_FLOAT, false, 0, 0);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
     }
 
     public void destroy() {
